@@ -11,7 +11,7 @@ async function namesArr() {
 
 function generateRandomYears() {
   const startYear = 1800;
-  const endYear = 1999;
+  const endYear = 1900;
 
   const year1 = Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;
   const year2 = Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;

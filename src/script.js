@@ -181,13 +181,29 @@ for(let i = 0; i < 50; i++){
         textGeometry.center()
         
         const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+        const yearGeometry = new TextGeometry(generateRandomYears(), {
+          font: font,
+          size: 0.03,
+          height: 0.03,
+        });
+        yearGeometry.center();
+        
+        const yearMesh = new THREE.Mesh(yearGeometry, textMaterial);
     
         // Position the text mesh on the grave
         textMesh.position.set(grave.position.x, grave.position.y + 0.3, grave.position.z + 0.1);
         textMesh.rotation.y = grave.rotation.y
         textMesh.rotation.z = grave.rotation.z
+
+        // Position the year text mesh below the name
+        yearMesh.position.set(grave.position.x, grave.position.y + 0.22, grave.position.z + 0.1);
+        yearMesh.rotation.y = grave.rotation.y;
+        yearMesh.rotation.z = grave.rotation.z;
+
         // Add the text mesh to the scene
         graves.add(textMesh);
+        graves.add(yearMesh)
     }
 
     graves.add(grave)
