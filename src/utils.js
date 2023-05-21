@@ -9,4 +9,16 @@ async function namesArr() {
     }
   }
 
-export { namesArr }
+function generateRandomYears() {
+  const startYear = 1800;
+  const endYear = 1999;
+
+  const year1 = Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;
+  const year2 = Math.floor(Math.random() * (endYear - startYear + 1)) + startYear;
+
+  const min = Math.min(...[year1, year2])
+  const max = Math.max(...[year1, year2])
+  return `${min} - ${max}`
+}
+
+export { namesArr, generateRandomYears }

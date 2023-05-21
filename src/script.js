@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 import * as dat from 'lil-gui'
-import { namesArr } from './utils'
+import { namesArr,generateRandomYears } from './utils'
 
 //RANDOM NAMES ARRAY
 const names = await namesArr() //generated random names using faker api
@@ -57,6 +57,9 @@ grassNormalTexture.wrapS = THREE.RepeatWrapping
 grassNormalTexture.wrapT = THREE.RepeatWrapping
 grassRoughnessTexture.wrapS = THREE.RepeatWrapping
 grassRoughnessTexture.wrapT = THREE.RepeatWrapping
+
+const graveColorTexture = textureLoader.load('/textures/grave/graveColor.jpg')
+const graveRoughnessTexture = textureLoader.load('/textures/grave/graveRoughness.jpg')
 
 //Fog
 const fog = new THREE.Fog('#262837',1,15)
@@ -139,8 +142,15 @@ const graves = new THREE.Group()
 
 scene.add(graves)
 const graveGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.2)
-const graveMaterial = new THREE.MeshStandardMaterial({ color: '#b2b6b1' })
+const graveMaterial = new THREE.MeshStandardMaterial({
+    map: graveColorTexture,
+    roughnessMap:graveRoughnessTexture 
+})
+
+//Font Loader
 const fontLoader = new FontLoader();
+//Text Material
+const textMaterial = new THREE.MeshBasicMaterial({ color: 'gray' });
 
 for(let i = 0; i < 50; i++){
     const angle = Math.random() * (Math.PI * 2)
@@ -158,7 +168,7 @@ for(let i = 0; i < 50; i++){
 
     //Text
     fontLoader.load('/fonts/helvetiker_regular.typeface.json', (font) => {
-    addTextToGrave(font);
+        addTextToGrave(font);
     });
 
     function addTextToGrave(font) {
@@ -169,7 +179,7 @@ for(let i = 0; i < 50; i++){
         height: 0.05,
         });
         textGeometry.center()
-        const textMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        
         const textMesh = new THREE.Mesh(textGeometry, textMaterial);
     
         // Position the text mesh on the grave
@@ -235,12 +245,12 @@ scene.add(wall2)
  * Lights
  */
 // Ambient light
-const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.12)
+const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.2)
 gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
 scene.add(ambientLight)
 
 // Directional light
-const moonLight = new THREE.DirectionalLight('#b9d5ff', 0.12)
+const moonLight = new THREE.DirectionalLight('#b9d5ff', 0.13)
 moonLight.position.set(4, 5, - 2)
 gui.add(moonLight, 'intensity').min(0).max(1).step(0.001)
 gui.add(moonLight.position, 'x').min(- 5).max(5).step(0.001)
