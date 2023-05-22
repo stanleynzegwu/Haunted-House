@@ -60,6 +60,7 @@ grassRoughnessTexture.wrapT = THREE.RepeatWrapping
 
 const graveColorTexture = textureLoader.load('/textures/grave/graveColor.jpg')
 const graveRoughnessTexture = textureLoader.load('/textures/grave/graveRoughness.jpg')
+const graveNormalTexture = textureLoader.load('/textures/grave/graveNormal.png')
 
 //Fog
 const fog = new THREE.Fog('#262837',1,15)
@@ -144,6 +145,7 @@ scene.add(graves)
 const graveGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.2)
 const graveMaterial = new THREE.MeshStandardMaterial({
     map: graveColorTexture,
+    normalMap: graveNormalTexture,
     roughnessMap:graveRoughnessTexture 
 })
 
